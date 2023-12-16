@@ -1,0 +1,37 @@
+﻿{
+    ServerURL               : "<HOME AUTOMATION SERVER URL>"
+    Username                : "<HOME AUTOMATION SERVER USERNAME>"
+    Password                : "<HOME AUTOMATION SERVER PASSWORD>"
+    MqttServerURL           : "<MQTT BROKER URL>"
+    MqttUsername            : "<MQTT BROKER USERNAME>"
+    MqttPassword            : "<MQTT BROKER PASSWORD>"
+    ServerTimeout           : 60
+    MaxCalendarEventsToRead : 50
+    MaxLogMessagesInUI      : 100
+    UpdateIntervalInMinutes : 60
+    TxtTomorrow             : "morgen"
+    TxtToday                : "heute"
+    TxtYesterday            : "gestern"
+    Events: [
+    {
+        CalendarEventTitle  : "Abfuhr: Bio"
+        DataObjectName      : "ABHOLUNG_BIOTONNE"
+        MqttTopic           : "CalendarEvents/ABHOLUNG_BIOTONNE"
+    },
+    {
+        CalendarEventTitle  : "Abfuhr: Restabfall"
+        DataObjectName      : "ABHOLUNG_RESTMUELL"
+        MqttTopic           : "CalendarEvents/ABHOLUNG_RESTMUELL"
+    },
+    {
+        CalendarEventTitle  : "Abfuhr: Papier"
+        DataObjectName      : "ABHOLUNG_PAPIERTONNE"
+        MqttTopic           : "CalendarEvents/ABHOLUNG_PAPIERTONNE"
+    },
+    {
+        CalendarEventTitle  : "Abfuhr: Gelber Sack"
+        DataObjectName      : "ABHOLUNG_GELBERSACK"
+        MqttTopic           : "CalendarEvents/ABHOLUNG_GELBERSACK"
+    }
+    ]
+}

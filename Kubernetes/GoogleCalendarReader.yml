@@ -1,0 +1,117 @@
+# Google Calendar Reader
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: googlecalendarreader-configmap
+data:
+  appsettings.hjson: |
+    {
+        ServerURL               : "<HOME AUTOMATION SERVER URL>"
+        Username                : "<HOME AUTOMATION SERVER USERNAME>"
+        Password                : "<HOME AUTOMATION SERVER PASSWORD>"
+        MqttServerURL           : "<MQTT BROKER URL>"
+        MqttUsername            : "<MQTT BROKER USERNAME>"
+        MqttPassword            : "<MQTT BROKER PASSWORD>"
+        ServerTimeout           : 60
+        MaxCalendarEventsToRead : 50
+        MaxLogMessagesInUI      : 100
+        UpdateIntervalInMinutes : 60
+        TxtTomorrow             : "tomorrow"
+        TxtToday                : "today"
+        TxtYesterday            : "yesterday"
+        Events: [
+        {
+            CalendarEventTitle  : "bio"
+            DataObjectName      : "COLLECTION_BIO"
+            MqttTopic           : "CalendarEvents/COLLECTION_BIO"
+        },
+        {
+            CalendarEventTitle  : "trash"
+            DataObjectName      : "COLLECTION_TRASH"
+            MqttTopic           : "CalendarEvents/COLLECTION_TRASH"
+        },
+        {
+            CalendarEventTitle  : "paper"
+            DataObjectName      : "COLLECTION_PAPER"
+            MqttTopic           : "CalendarEvents/COLLECTION_PAPER"
+        },
+        {
+            CalendarEventTitle  : "plastic"
+            DataObjectName      : "COLLECTION_PLASTIC"
+            MqttTopic           : "CalendarEvents/COLLECTION_PLASTIC"
+        }
+        ]
+    }
+  credentials.json: |
+
+    NOTE: after first run on your local machine, you have the file named
+    credentials.json in directory, same where the appsettings.hjson is.
+    Paste the contents of this file here!
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: googlecalendarreader-configmap2
+data:
+  Google.Apis.Auth.OAuth2.Responses.TokenResponse-user: |
+    
+    NOTE: after first run on your local machine, you have the file named
+    'Google.Apis.Auth.OAuth2.Responses.TokenResponse.user' in your token.json subdirectory.
+    Paste the contents of this file here!
+    
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: googlecalendarreader-deployment
+  labels:
+    app: googlecalendarreader
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: googlecalendarreader
+  template:
+    metadata:
+      labels:
+        app: googlecalendarreader
+    spec:
+      volumes:
+        - name: appsettings
+          configMap:
+            name: googlecalendarreader-configmap
+        - name: appsettings2
+          configMap:
+            name: googlecalendarreader-configmap2
+      containers:
+        - name: googlecalendarreader
+          image: ghcr.io/oliverabraham/googlecalendarreader/googlecalendarreader:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: appsettings
+              mountPath: /opt
+            - name: appsettings2
+              mountPath: /opt/token.json
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: googlecalendarreader
+  ports:
+    - protocol: TCP
+      nodePort: 30000
+      port: 80
+      targetPort: 80
+---

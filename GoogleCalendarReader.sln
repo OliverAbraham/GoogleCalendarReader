@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34321.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 Solution Items", "4 Solution Items", "{8BED8715-DAB5-4DF5-A00F-D82B199A5934}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		Ciridata.ico = Ciridata.ico
+		Ciridata.png = Ciridata.png
+		Deploy.cmd = Deploy.cmd
+		LICENSE.txt = LICENSE.txt
+		login_to_ghcr.cmd = login_to_ghcr.cmd
+		publish_to_ghcr.cmd = publish_to_ghcr.cmd
+		Publish_to_Server1.cmd = Publish_to_Server1.cmd
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 App", "1 App", "{0FD97BEB-D525-449A-A4B1-C61D41DE6862}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleCalendarReader", "GoogleCalendarReader\GoogleCalendarReader.csproj", "{75F7AD99-D651-441D-989D-D1347EE73BD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Run standalone as Commandline", "2 Run standalone as Commandline", "{FDA2B770-B572-4B8D-95D8-0806644A5CE0}"
+	ProjectSection(SolutionItems) = preProject
+		DeployDirectory\Install_deploy.cmd = DeployDirectory\Install_deploy.cmd
+		DeployDirectory\Install_deploy2.cmd = DeployDirectory\Install_deploy2.cmd
+		DeployDirectory\setparams.cmd = DeployDirectory\setparams.cmd
+		DeployDirectory\StartGoogleCalenderReader.cmd = DeployDirectory\StartGoogleCalenderReader.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Run in Kubernetes", "3 Run in Kubernetes", "{F9B4CA50-2CA2-4288-B41E-5831B408EA8A}"
+	ProjectSection(SolutionItems) = preProject
+		Kubernetes\GoogleCalendarReader.yml = Kubernetes\GoogleCalendarReader.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75F7AD99-D651-441D-989D-D1347EE73BD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F7AD99-D651-441D-989D-D1347EE73BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F7AD99-D651-441D-989D-D1347EE73BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F7AD99-D651-441D-989D-D1347EE73BD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75F7AD99-D651-441D-989D-D1347EE73BD2} = {0FD97BEB-D525-449A-A4B1-C61D41DE6862}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6DD538E3-CB5E-4ECA-B0F4-6F2C23E67D43}
+	EndGlobalSection
+EndGlobal
