@@ -36,12 +36,7 @@ I'm running it in a local kubernetes. (yaml file attached)
 ## INSTALLATION
 
 You need to edit the appsettings.hjson file with your configuration first.
-Take my example file as a guideline.
-To run it as a docker container, you have to mount three files into the container:
-- appsettings.hjson
-- credentials.json
-- token.json subdirectory, containing the file from the google api authentication process.
-  (named 'Google.Apis.Auth.OAuth2.Responses.TokenResponse-user^'^)
+Take this example as a guideline:
 
 
 ### appsettings.hjson
@@ -118,6 +113,15 @@ The last entry is the MQTT topic.
 
 ### Running in Docker
 
+To run it as a docker container, you have to mount three files into the container:
+- appsettings.hjson
+- credentials.json
+- token.json subdirectory, containing the file from the google api authentication process.
+  (named 'Google.Apis.Auth.OAuth2.Responses.TokenResponse-user^'^)
+
+You have created the first file by yourself. The other two files are created by the google api authentication process, on the first run.
+You need to run the app once locally. Then, you can copy the files to your docker host.
+
 Start a docker container with a docker-compose.yml file like this.
 (sample in my repo)
 
@@ -144,7 +148,7 @@ You should have the folder "C:\Credentials\GoogleCalendarReader" on your host, c
 
 ## Running in Kubernetes
 
-Start a Pod with a deployment like the one om ny repo. I have mounted the files from a configmap.
+Start a Pod with a deployment like the one on my repo. I have mounted the files from a configmap.
 There's a special point to be aware of: 
 The token file for the oauth data cannot be write protected. Normally, when you start the app the first time, the google API will try to open up a browser, to redirect you to the google login page. Then, you'll be able to grant your app the rights to read your calendar.
 So, to be able to execute my app in a container, you can't do this, because the container has no browser.
