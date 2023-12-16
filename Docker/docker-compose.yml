@@ -1,0 +1,10 @@
+version: "3"
+services:
+  googlecalendarreader:
+    image: ghcr.io/oliverabraham/googlecalendarreader/googlecalendarreader:latest
+    container_name: googlecalendarreader
+    ports:
+      - 32080:80
+    volumes:
+      - /C/credentials/googlecalendarreader/:/opt/
+    restart: unless-stopped

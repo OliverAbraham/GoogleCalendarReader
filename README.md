@@ -92,11 +92,34 @@ you can put this file in the bin directory.
 }
 ```
 
+## Configuration parameters
+
+- ServerURL, Username, Password
+These are the parameters to connect to my personal home automation server "HNServer".
+This is useless for you because I haven't published this project yet.
+
+- MqttServerURL, MqttUsername, MqttPassword
+These are the parameters to connect to your MQTT broker.
+
+- ServerTimeout
+The time in seconds before giving up :-)
+
+- UpdateIntervalInMinutes
+The frequency in which the application will check the calendar.
+
+- Events
+Put your filters here.
+CalendarEventTitle should contain a keyword that is part of the title of the calendar entry.
+The second property, , is only for my personal home automation server.
+The last entry is the MQTT topic.
 
 
-### Docker
 
-Start a docker container with a docker-compose.yml file like this:
+
+### Running in Docker
+
+Start a docker container with a docker-compose.yml file like this.
+(sample in my repo)
 
 ```
 version: "3"
@@ -107,10 +130,28 @@ services:
     ports:
       - 32080:80
     volumes:
-      - /home/pi/googlecalendarreader/appsettings.hjson:/opt/appsettings.hjson
-      - /srv/dev-disk-by-uuid-436974ef-70d4-45cf-885c-0aedcd80d737:/mnt
+      - /C/credentials/googlecalendarreader/:/opt/
     restart: unless-stopped
 ```
+
+You should have the folder "C:\Credentials\GoogleCalendarReader" on your host, containing the files:
+- appsettings.hjson
+- credentials.json
+- token.json subdirectory, containing the file from the google api authentication process.
+  (named 'Google.Apis.Auth.OAuth2.Responses.TokenResponse-user')
+
+
+
+## Running in Kubernetes
+
+Start a Pod with a deployment like the one om ny repo. I have mounted the files from a configmap.
+There's a special point to be aware of: 
+The token file for the oauth data cannot be write protected. Normally, when you start the app the first time, the google API will try to open up a browser, to redirect you to the google login page. Then, you'll be able to grant your app the rights to read your calendar.
+So, to be able to execute my app in a container, you can't do this, because the container has no browser.
+You have to run the app once on your local machine, to get the token file. Then, mount the file into your container.
+
+The next problem: When you mount files from a config map, they are write protected.But the google API doesn't like the token file to be write protected. My app will detect this situation: It will create a temp folder in the container 
+and copy the file 'Google.Apis.Auth.OAuth2.Responses.TokenResponse-user' to it.
 
 
 
@@ -145,40 +186,25 @@ The source code is hosted at:
 https://github.com/OliverAbraham/GoogleCalendarReader
 
 
-## appsettings file configuration
-
-- ServerURL, Username, Password
-These are the parameters to connect to my personal home automation server "HNServer".
-This is useless for you because I haven't published this project yet.
-
-- MqttServerURL, MqttUsername, MqttPassword
-These are the parameters to connect to your MQTT broker.
-
-- ServerTimeout
-The time in seconds before giving up :-)
-
-- UpdateIntervalInMinutes
-The frequency in which the application will check the calendar.
-
-- Events
-
-Put your filters here.
-CalendarEventTitle should contain a keyword that is part of the title of the calendar entry.
-The second property, , is only for my personal home automation server.
-The last entry is the MQTT topic.
-
 
 
 
 # SCREENSHOTS
+Docker log:
 ![Alt Text](Screenshots/screenshot1.jpg)
 
-This is a picture of my dashboard where the results are displayed:
-(dashboard can be found in my repo "AllOnOnePage")
+My calender:
+![Alt Text](Screenshots/screenshot3.jpg)
+
+Web interface, showing that the app has found the calendar events:
 ![Alt Text](Screenshots/screenshot2.jpg)
 
-This is a picture of my MQTT broker receiving the values:
-![Alt Text](Screenshots/screenshot3.jpg)
+My dashboard, showing the MQTT values:
+![Alt Text](Screenshots/screenshot4.jpg)
+
+The app in kubernetes, instead of docker:
+![Alt Text](Screenshots/screenshot5.jpg)
+
 
 
 

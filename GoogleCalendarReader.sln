@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34321.82
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 Solution Items", "4 Solution Items", "{8BED8715-DAB5-4DF5-A00F-D82B199A5934}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 Solution Items", "5 Solution Items", "{8BED8715-DAB5-4DF5-A00F-D82B199A5934}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
 		Ciridata.ico = Ciridata.ico
@@ -28,9 +28,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Run standalone as Command
 		DeployDirectory\StartGoogleCalenderReader.cmd = DeployDirectory\StartGoogleCalenderReader.cmd
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Run in Kubernetes", "3 Run in Kubernetes", "{F9B4CA50-2CA2-4288-B41E-5831B408EA8A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 Run in Kubernetes", "4 Run in Kubernetes", "{F9B4CA50-2CA2-4288-B41E-5831B408EA8A}"
 	ProjectSection(SolutionItems) = preProject
 		Kubernetes\GoogleCalendarReader.yml = Kubernetes\GoogleCalendarReader.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Run in Docker", "3 Run in Docker", "{B89FB388-2D9F-4E54-901A-E98C220281AD}"
+	ProjectSection(SolutionItems) = preProject
+		Docker\docker-compose.yml = Docker\docker-compose.yml
 	EndProjectSection
 EndProject
 Global
