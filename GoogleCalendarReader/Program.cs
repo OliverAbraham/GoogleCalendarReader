@@ -1,4 +1,5 @@
 using Abraham.Scheduler;
+using NLog;
 
 namespace GoogleCalendarReader
 {
@@ -8,6 +9,7 @@ namespace GoogleCalendarReader
         private static CalendarReaderLogic _logic;
         private static Scheduler _scheduler;
         private static List<string> _log = new();
+        private static Logger _logger;
         #endregion
 
 
@@ -15,6 +17,7 @@ namespace GoogleCalendarReader
         #region ------------- Init ----------------------------------------------------------------
         public static void Main(string[] args)
         {
+            InitLogging();
             Greeting();
             if (!InitWorker())
             {
@@ -97,12 +100,22 @@ namespace GoogleCalendarReader
             _scheduler.Stop();
             Console.WriteLine("Program ended");
         }
+        #endregion
 
+
+
+        #region ------------- Simple logger for website display -----------------------------------
         private static void Log(string message)
+        {
+            _logger.Info(message);
+            WebsiteLogger(message);
+        }
+
+        private static void WebsiteLogger(string message)
         {
             var line = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}: {message}";
             _log.Add(line);
-            Console.WriteLine(line);
+            //Console.WriteLine(line);
 
             // automatic purge
             int maxLines = (_logic is not null) ? _logic.MaxLogMessagesInUI : 100;
@@ -113,6 +126,16 @@ namespace GoogleCalendarReader
         private static string GetWholeLog()
         {
             return string.Join("\n", _log);
+        }
+        #endregion
+
+
+
+        #region ------------- NLog logger ---------------------------------------------------------
+        private static void InitLogging()
+        {
+			// ATTENTION: Go to Properties of nlog.config and set it to "copy if newer", to have it in output directory!
+            _logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
         }
         #endregion
     }

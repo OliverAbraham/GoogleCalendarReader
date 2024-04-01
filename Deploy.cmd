@@ -1,4 +1,4 @@
-@ECHO off
+@ECHO on
 @ECHO -----------------------------------------------------------------------------------
 @ECHO Deploy-Skript
 @ECHO Zielanwendung: %DESTINATION%
