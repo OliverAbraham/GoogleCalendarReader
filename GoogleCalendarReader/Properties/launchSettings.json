@@ -2,6 +2,7 @@
   "profiles": {
     "GoogleCalendarReader": {
       "commandName": "Project",
+      "workingDirectory": "C:\\Credentials\\GoogleCalendarReader",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {

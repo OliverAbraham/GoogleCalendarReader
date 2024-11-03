@@ -1,7 +1,8 @@
 using Abraham.Scheduler;
+using GoogleCalendarReader;
 using NLog;
 
-namespace GoogleCalendarReader
+namespace WeatherGateway
 {
     public class Program
     {

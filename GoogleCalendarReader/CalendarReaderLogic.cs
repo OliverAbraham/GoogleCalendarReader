@@ -381,10 +381,16 @@ namespace GoogleCalendarReader
             if (_homenetClient is null)
                 return;
 
-            bool success = _homenetClient.UpdateValueOnly(new DataObject() { Name = dataObjectName, Value = value});
-
-            if (!success)
-                Logger($"server update error! {_homenetClient.LastError}");
+            try
+            {
+                bool success = _homenetClient.UpdateValueOnly(new DataObject() { Name = dataObjectName, Value = value});
+                if (!success)
+                    Logger($"server update error! {_homenetClient.LastError}");
+            }
+            catch (Exception ex)
+            {
+                Logger("Error communicating with homenet server:\n" + ex.ToString());
+            }
         }
         #endregion
         #region MQTT broker connection
@@ -423,10 +429,17 @@ namespace GoogleCalendarReader
             if (_mqttClient is null || topicName is null)
                 return;
 
-            var result = _mqttClient.Publish(topicName, value);
+            try
+            {
+                var result = _mqttClient.Publish(topicName, value);
 
-            if (!result.IsSuccess)
-                Logger($"MQTT topic update error! {result.ReasonString}");
+                if (!result.IsSuccess)
+                    Logger($"MQTT topic update error! {result.ReasonString}");
+            }
+            catch (Exception ex)
+            {
+                Logger("Error communicating with MQTT server:\n" + ex.ToString());
+            }
         }
         #endregion
         #region Reading configuration file
